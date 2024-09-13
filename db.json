@@ -1,0 +1,52 @@
+{
+  "usersList": [
+    {
+      "id": 1,
+      "name": "Abhi",
+      "email": "a hi@gmail.com",
+      "roles": "web development"
+    },
+    {
+      "name": "pradeep",
+      "email": "pradeep",
+      "roles": "mechanical",
+      "id": 2
+    },
+    {
+      "name": "ankush",
+      "email": "ankush@gmail.com",
+      "roles": "biology",
+      "id": 3
+    },
+    {
+      "name": "lucky",
+      "email": "lucky@gmail.com",
+      "roles": "software",
+      "id": 4
+    },
+    {
+      "name": "priya",
+      "email": "priya@gmail.com",
+      "roles": "web",
+      "id": 5
+    },
+    {
+      "name": "vashu ",
+      "email": "vashu@gmail.com",
+      "roles": "chemical",
+      "id": 6
+    },
+    {
+      "name": "Rinku ",
+      "email": "rinku@gmail.com",
+      "roles": "web development",
+      "id": 7
+    },
+    {
+      "name": "prince ",
+      "email": "prince@gmail.com",
+      "roles": "web",
+      "id": 8
+    }
+  ]
+}
