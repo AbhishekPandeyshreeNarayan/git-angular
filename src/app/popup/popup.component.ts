@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { UserService } from '../user.service';
 import { SnackbarService } from '../snackbar.service';
@@ -11,15 +11,18 @@ import { SnackbarService } from '../snackbar.service';
 })
 export class PopupComponent implements OnInit {
   editdata: any;
+  userForm!: FormGroup;
   constructor(private builder: FormBuilder, private dialog: MatDialog, private api: UserService, private snackbar: SnackbarService,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) {
 
-    userForm = this.builder.group({
-      id: this.builder.control({ value: '', disabled: true }),
-      name: this.builder.control('', Validators.required),
-      email: this.builder.control('', Validators.required,),
-      roles: this.builder.control('', Validators.required),
+    this.userForm = this.builder.group({
+      id: [{ value: '', disabled: true }],
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      roles: ['', Validators.required],
     });
+
+  }
 
   ngOnInit(): void {
     if (this.data.id != '' && this.data.id != null) {
@@ -39,18 +42,31 @@ export class PopupComponent implements OnInit {
       if (Editid != '' && Editid != null) {
         this.api.updateUsers(Editid, this.userForm.getRawValue()).subscribe(res => {
           this.closepopup();
-          this.snackbar.openSnackBar('updated successfully','cancel')
+          this.snackbar.openSnackBar('updated successfully', 'cancel')
         });
       } else {
         this.api.addUsers(this.userForm.value).subscribe(res => {
           this.closepopup();
-          this.snackbar.openSnackBar('saved successfully','cancel')
+          this.snackbar.openSnackBar('saved successfully', 'cancel')
         });
       }
     }
   }
 
+  get name() {
+    return this.userForm.get('name');
+  }
+
+  get email() {
+    return this.userForm.get('email');
+  }
+
+  get roles() {
+    return this.userForm.get('roles');
+  }
+
   closepopup() {
     this.dialog.closeAll();
   }
+
 }
